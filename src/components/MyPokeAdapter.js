@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import MyPokeList from './MyPokeList'
+import Header from '../page/Header';
+import Footer from '../page/Footer';
+import '../style/App.scss';
+import '../style/App.scss';
 
-class PokeAdapter extends Component {
+export default class MyPokeAdapter extends Component {
 
   constructor(props) {
     super(props)
@@ -15,17 +19,20 @@ class PokeAdapter extends Component {
     var { pokemon } = this.props;
 
     return (
-      <ul>
-        <button onClick={()=> this.props.push('/')}>Pokedex</button>
-        { Object.keys(pokemon).map(id => (
-          <MyPokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/my_poke/'+id)} />
-        )) }
-      </ul>
+       <div className = "container" >
+         <Header />
+        <div className="content">
+          <ul className="ul-poke">
+            { Object.keys(pokemon).map(id => (
+              <MyPokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/my_poke/'+id)} />
+            )) }
+          </ul>
+        </div>
+      <Footer />
+        
+      </div>
+
+      
     );
   }
 }
-
-
-
-
-export default PokeAdapter

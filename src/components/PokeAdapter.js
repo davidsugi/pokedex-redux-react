@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import PokeList from './PokeList'
+import Footer from '../page/Footer';
+import Header from '../page/Header';
+import '../style/App.scss';
+import '../style/App.scss';
 
 class PokeAdapter extends Component {
 
@@ -17,19 +21,28 @@ class PokeAdapter extends Component {
 
 
   render() {
-    var { pokemon ,isLoading } = this.props;
-
-    if(isLoading){
-      return (<p>loading.......</p>)
-    }
+    var { pokemon ,isLoading, my_pokemon } = this.props;
     
     return (
-      <ul>
-        <button onClick={()=> this.props.push('/my_poke')}>My Pokemon</button>
-        { Object.keys(pokemon).map(id => (
-          <PokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/'+id)} />
-        )) } 
-      </ul>
+      < div className = "container" >
+         <Header />
+        <div className="content">
+        
+          {
+            isLoading ?
+              <p>loading.......</p>
+           : 
+           <ul className="ul-poke">
+           {Object.keys(pokemon).map(id => (
+            <PokeList key={id} {...pokemon[id]} owned={my_pokemon[id]} onClick={()=> this.props.push('/'+id)} />
+          )) 
+        }      
+          </ul>
+          } 
+        </div>
+      <Footer />
+        
+      </div>
     );
   }
 }

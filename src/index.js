@@ -14,6 +14,16 @@ import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
 import { loadState,saveState } from './localStorage';
 
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import red from '@material-ui/core/colors/red';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: red[600]
+        }
+    }
+}, )
 
 const presistState = loadState();
 const store = configureStore(presistState)
@@ -26,17 +36,20 @@ store.subscribe(()=>{
 
 
 ReactDOM.render(
-<Provider store={store}>
-     <ConnectedRouter history={history}> 
-        <Switch>
-          <Route exact path="/" render={() => <App />} />
-          <Route exact path="/my_poke" render={() => <MyPoke />} />
-          <Route path="/my_poke/:id" render={() => <MyPokeDetail />} />
-          <Route path="/:id" render={() => <Detail />} />
-          <Route render={() => (<div>Miss</div>)} />
-        </Switch>
-    </ConnectedRouter>
-</Provider>, document.getElementById('root'));
+    <MuiThemeProvider theme={theme}>
+        <Provider store={store}>
+            <ConnectedRouter history={history}> 
+                <Switch>
+                <Route exact path="/" render={() => <App />} />
+                <Route exact path="/my_poke" render={() => <MyPoke />} />
+                <Route path="/my_poke/:id" render={() => <MyPokeDetail />} />
+                <Route path="/:id" render={() => <Detail />} />
+                <Route render={() => (<div>Miss</div>)} />
+                </Switch>
+            </ConnectedRouter>
+        </Provider>
+    </MuiThemeProvider>
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

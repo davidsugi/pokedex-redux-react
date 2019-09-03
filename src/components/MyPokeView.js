@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PokeList from './PokeList'
 import no_img from '../assets/pokeball.svg';
 
-class PokeAdapter extends Component {
+export default class MyPokeView extends Component {
 
   constructor(props) {
     super(props)
@@ -30,5 +30,3 @@ class PokeAdapter extends Component {
 
 
 
-
-export default PokeAdapter

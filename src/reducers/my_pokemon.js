@@ -1,6 +1,6 @@
 import {  MY_POKE } from '../actions'
 
-const initState = {data:[]}
+const initState = {data:[],counter:0,summary:[]}
 
 
 export default function (state = initState, action) {
@@ -9,7 +9,12 @@ export default function (state = initState, action) {
       return {...state, 
         data:{
             ...state.data,
-            [action.poke.id]: action.poke,
+            [state.counter]: action.poke,
+        },
+        counter: state.counter+1,
+        summary:{
+            ...state.summary,
+            [action.poke.id]: state.summary[action.poke.id] ? state.summary[action.poke.id]+1 : 1,
         }
     }
     case MY_POKE.RELEASE:
@@ -22,7 +27,7 @@ export default function (state = initState, action) {
                     ...state.data.action.payload.id,
                     re_name: action.payload.name
                 }
-            }
+            },
         }
     default:
       return state

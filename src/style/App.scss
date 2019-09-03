@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content{
+   flex: 1 1 auto;
+   overflow-y: auto;
+   min-height: 0px;
+}
+
+.ul-poke{
+  display: flex;
+  flex-wrap: wrap;
+  padding-inline-end: 10px;
+  padding-inline-start: 10px;
+  justify-content: space-evenly;
+  &:after {
+    content: "";
+    flex: auto;
+  }
+}
+
+.ul-poke li{
+  list-style: none;
+  margin:10px 0px;
+}
+
+.card{
+  width: 150px;
+  height:100%;
+  margin:10px;
+}
+
+
+.image{
+  width:100%;
+}

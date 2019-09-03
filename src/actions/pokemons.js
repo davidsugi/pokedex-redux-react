@@ -17,7 +17,7 @@ export const LOAD_DETAIL={
 export const getPokemon = () => dispatch => {
   return dispatch({
     [RSAA]: {
-      endpoint: URL+'pokemon?limit=964',
+      endpoint: URL+'pokemon?limit=34',
       method: 'GET',
       types: [
         LOAD_POKE.REQUEST,

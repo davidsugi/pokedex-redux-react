@@ -6,6 +6,7 @@ import { push } from 'connected-react-router'
 
 const mapStateToProps = state => ({
   pokemon: state.pokemon.data,
+  my_pokemon: state.my_pokemon.summary,
   isLoading: state.pokemon.isLoading,
 })
 
