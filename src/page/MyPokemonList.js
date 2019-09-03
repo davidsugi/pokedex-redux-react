@@ -1,20 +1,17 @@
 import { connect } from 'react-redux'
-import PokeAdapter from '../components/PokeAdapter'
-import { getPokemon } from '../actions/pokemons'
+import MyPokeAdapter from '../components/MyPokeAdapter'
 import { push } from 'connected-react-router'
 
 
 const mapStateToProps = state => ({
-  pokemon: state.pokemon.data,
-  isLoading: state.pokemon.isLoading,
+  pokemon: state.my_pokemon.data,
 })
 
 const mapDispatchToProps = {
-  getPokemon,
   push,
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PokeAdapter)
+)(MyPokeAdapter)

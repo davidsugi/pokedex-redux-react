@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PokeList from './PokeList'
 
-
 class PokeAdapter extends Component {
 
   constructor(props) {
@@ -26,8 +25,9 @@ class PokeAdapter extends Component {
     
     return (
       <ul>
+        <button onClick={()=> this.props.push('/my_poke')}>My Pokemon</button>
         { Object.keys(pokemon).map(id => (
-          <PokeList key={id} {...pokemon[id]} />
+          <PokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/'+id)} />
         )) } 
       </ul>
     );

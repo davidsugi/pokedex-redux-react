@@ -3,9 +3,13 @@ import thunkMiddleware from 'redux-thunk'
 import { apiMiddleware } from 'redux-api-middleware'
 import { createLogger } from 'redux-logger'
 import rootReducer from './reducers'
+import { createBrowserHistory } from 'history'
+import { routerMiddleware } from 'connected-react-router'
 
-export default function configureStore(initialState = {}) {
-  const middlewares = [thunkMiddleware, apiMiddleware]
+export const history = createBrowserHistory()
+
+export  function configureStore(initialState = {}) {
+  const middlewares = [thunkMiddleware, apiMiddleware,routerMiddleware(history)]
 
   let composeEnhancers = compose
 
@@ -19,7 +23,7 @@ export default function configureStore(initialState = {}) {
   }
 
   return createStore(
-    rootReducer,
+    rootReducer(history),
     initialState,
     composeEnhancers(applyMiddleware(...middlewares))
   )
