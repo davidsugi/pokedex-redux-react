@@ -1,21 +1,18 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
 import Zoom from '@material-ui/core/Zoom';
-import PropTypes from 'prop-types'
-import no_img from '../assets/missing.svg';
-import '../style/App.scss'
-import ContentLoader, { Facebook } from 'react-content-loader';
+import React from 'react';
+import ContentLoader from 'react-content-loader';
 import LazyLoad from 'react-lazy-load';
+import '../style/App.scss';
 import ImgLoader from './ImgLoader';
 
 export default function PokeList({ onClick, name,id, owned=0 ,isLoading}) {
   if(isLoading){
       return (<li>
-        <Card className="card" style={{ margin:20 }}>
+        <Card className="card" >
            <ContentLoader 
               height={110}
               width={100}

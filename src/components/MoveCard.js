@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import { capitalize } from '../helper'
+import React from 'react';
 import ContentLoader from "react-content-loader";
+import { capitalize } from '../helper';
 
 const LoaderVariant =[
     <ContentLoader height={20} width={180} speed={4} primaryColor="#cfcfcf" secondaryColor="#ededed"> <rect x="11" y="8" rx="0" ry="0" width="75" height="12" />  <rect x="104" y="9" rx="0" ry="0" width="15" height="13" />  <rect x="129" y="10" rx="0" ry="0" width="90" height="12" /></ContentLoader>,

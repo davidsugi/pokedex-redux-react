@@ -1,6 +1,5 @@
-import { URL } from '../constants'
-import { RSAA } from 'redux-api-middleware'
-import {item_limit} from '../constants'
+import { RSAA } from 'redux-api-middleware';
+import { URL } from '../constants';
 
 export const LOAD_POKE={
   REQUEST: 'LOAD_POKE',

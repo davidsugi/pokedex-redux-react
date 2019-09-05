@@ -1,8 +1,8 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import Footer from '../components/Footer'
-import { goBack, push } from 'connected-react-router'
-
+import { goBack } from 'connected-react-router'
+import {clearQueryPush} from '../actions';
 import { withRouter } from "react-router";
 
 const mapStateToProps = (state) => ({
@@ -10,7 +10,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  goBack,push
+  goBack,
+  push: clearQueryPush
 }
 
 export default compose(

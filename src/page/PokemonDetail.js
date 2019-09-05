@@ -1,11 +1,11 @@
-import { compose } from 'redux'
-import { connect } from 'react-redux'
-import PokeView from '../components/PokeView'
-import { showPokemon } from '../actions/pokemons'
-import { throwPokeBall,renamePoke } from '../actions'
-import { goBack ,push } from 'connected-react-router'
-
+import { push } from 'connected-react-router';
+import { connect } from 'react-redux';
 import { withRouter } from "react-router";
+import { compose } from 'redux';
+import { renamePoke, throwPokeBall } from '../actions';
+import { showPokemon } from '../actions/pokemons';
+import PokeView from '../components/PokeView';
+
 
 const mapStateToProps = (state) => ({
   pokemon: state.detail_pokemon.data,
@@ -18,7 +18,6 @@ const mapDispatchToProps = {
   showPokemon,
   throwPokeBall,
   push,
-  goBack,
   renamePoke
 }
 

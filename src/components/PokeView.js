@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-
-import no_img from '../assets/pokeball.svg';
-import Header from '../page/Header';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import "../style/App.scss"
-import red from '@material-ui/core/colors/red';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
 import Chip from '@material-ui/core/Chip';
-import Fab from '@material-ui/core/Fab';
+import red from '@material-ui/core/colors/red';
 import Container from '@material-ui/core/Container';
-import { type } from '../style/color';
-import { capitalize,_renderLoader } from '../helper'
-import Zoom from '@material-ui/core/Zoom';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 import Snackbar from '@material-ui/core/Snackbar';
-import SnackContent from './Snackbar'
-import Dialog from './FormDialog';
+import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import Zoom from '@material-ui/core/Zoom';
+import React, { Component } from 'react';
 import ContentLoader from "react-content-loader";
+import no_img from '../assets/pokeball.svg';
+import { capitalize, _renderLoader } from '../helper';
+import Header from '../page/Header';
+import "../style/App.scss";
+import { type } from '../style/color';
+import Dialog from './FormDialog';
 import MoveCard from "./MoveCard";
+import SnackContent from './Snackbar';
+
 
 const failMsg = [
 "Oh no! The pokemon broke free!",
@@ -112,7 +112,7 @@ class PokeView extends Component {
   
   
   render() {
-    var { pokemon ,isLoading,goBack} = this.props;
+    var { pokemon ,isLoading} = this.props;
     
     const { open } = this.state;
     const { classes } = this.props;

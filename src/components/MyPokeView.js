@@ -1,34 +1,22 @@
-import React, { Component } from 'react';
-
-import no_img from '../assets/pokeball.svg';
-import Header from '../page/Header';
+import Button from '@material-ui/core/Button';
+import Chip from '@material-ui/core/Chip';
+import red from '@material-ui/core/colors/red';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import "../style/App.scss"
-import red from '@material-ui/core/colors/red';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import Chip from '@material-ui/core/Chip';
-import Fab from '@material-ui/core/Fab';
-import Container from '@material-ui/core/Container';
-import { type } from '../style/color';
-import { capitalize } from '../helper'
-import Grow from '@material-ui/core/Grow';
 import Zoom from '@material-ui/core/Zoom';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackContent from './Snackbar'
-import Dialog from './FormDialog';
-import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
-import Swal from 'sweetalert2'
+import React, { Component } from 'react';
+import Swal from 'sweetalert2';
+import no_img from '../assets/pokeball.svg';
+import { capitalize } from '../helper';
+import Header from '../page/Header';
+import "../style/App.scss";
+import { type } from '../style/color';
 
-const failMsg = [
-"Oh no! The pokemon broke free!",
-"Aww! It appeared to be caught!",
-"Argh! Almost had it!",
-"Shoot, it was so close too!",
-]
 
 const style = theme => ({
   topCard: {
@@ -132,7 +120,6 @@ class MyPokeView extends Component {
   render() {
     var { pokemon ,isLoading} = this.props;
     
-    const { open } = this.state;
     const { classes } = this.props;
 
      pokemon = pokemon[this.props.match.params.id];
@@ -207,8 +194,5 @@ class MyPokeView extends Component {
     return <div></div>
   }
 }
-
-
-
 
 export default withStyles(style)(MyPokeView)

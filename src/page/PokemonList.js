@@ -1,9 +1,8 @@
-import { connect } from 'react-redux'
-import PokeAdapter from '../components/PokeAdapter'
-import { getPokemon,search } from '../actions/pokemons'
-import { push } from 'connected-react-router';
-import { clearQueryPush } from '../actions'
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { clearQueryPush } from '../actions';
+import { getPokemon, search } from '../actions/pokemons';
+import PokeAdapter from '../components/PokeAdapter';
 
 const getDisplayedData = (pokemon, query) => {
     if(query!=="")

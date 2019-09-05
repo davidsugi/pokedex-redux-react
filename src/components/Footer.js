@@ -11,6 +11,11 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
+    position: 'fixed',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    zIndex:777,
   },
 }));
 
@@ -21,11 +26,10 @@ export default function SimpleBottomNavigation(props) {
 
 
   return (
-    <Paper elevation={4}>
+    <Paper elevation={4}  className={classes.root}>
     <BottomNavigation
       value={menu.findIndex(x => x.url === props.router.location.pathname)}
       showLabels
-      className={classes.root}
     >
       {menu.map((tab,i)=>{
         return (<BottomNavigationAction key={i} label={tab.label} onClick={()=>props.push(tab.url)} icon={<span className={tab.class} />}  />

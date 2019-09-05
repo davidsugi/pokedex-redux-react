@@ -64,3 +64,11 @@
   animation-delay: 0.1s;
 
 }
+
+.page-header {
+  @supports (-webkit-appearance:none) {
+    .os-android & {
+      min-height: calc(100vh - 56px);
+    }
+  }
+}

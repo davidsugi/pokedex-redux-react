@@ -1,22 +1,21 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import PropTypes from 'prop-types'
-import no_img from '../assets/missing.svg';
-import '../style/App.scss'
 import Button from '@material-ui/core/Button';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
-import ContentLoader from "react-content-loader"
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ContentLoader from "react-content-loader";
 import LazyLoad from 'react-lazy-load';
+import no_img from '../assets/missing.svg';
+import '../style/App.scss';
 
-export default function MyPokeList({ onClick, name,id, re_name, release,isLoading }) {
+function MyPokeList({ onClick, name,id, re_name, release,isLoading }) {
     if(isLoading){
       return (<li>
-        <Card className="card" style={{ margin:20 }}>
+        <Card className="card">
            <ContentLoader 
               height={120}
               width={100}
@@ -81,3 +80,15 @@ export default function MyPokeList({ onClick, name,id, re_name, release,isLoadin
     </li>
   );
 }
+
+MyPokeList.propTypes = {
+  name: PropTypes.string,
+  onClick: PropTypes.func,
+  id: PropTypes.string,
+  re_name: PropTypes.string,
+  release: PropTypes.func,
+  isLoading: PropTypes.bool,
+
+};
+
+export default MyPokeList;
