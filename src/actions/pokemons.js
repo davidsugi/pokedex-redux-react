@@ -1,11 +1,14 @@
 import { URL } from '../constants'
 import { RSAA } from 'redux-api-middleware'
+import {item_limit} from '../constants'
 
 export const LOAD_POKE={
   REQUEST: 'LOAD_POKE',
   SUCCESS: 'LOAD_POKE_SUCCESS',
   FAIL: 'LOAD_POKE_FAIL',
 }
+
+export const SEARCH_POKEMON = 'SEARCH_POKEMON'
 
 export const LOAD_DETAIL={
   REQUEST: 'LOAD_DETAIL',
@@ -14,10 +17,10 @@ export const LOAD_DETAIL={
 }
 
 
-export const getPokemon = () => dispatch => {
+export const getPokemon = (page) => dispatch => {
   return dispatch({
     [RSAA]: {
-      endpoint: URL+'pokemon?limit=34',
+      endpoint: URL+`pokemon?limit=964`,
       method: 'GET',
       types: [
         LOAD_POKE.REQUEST,
@@ -27,6 +30,17 @@ export const getPokemon = () => dispatch => {
     }
   })
 }
+
+
+export function search(query) {
+  return {
+    type: SEARCH_POKEMON,
+    query
+  }
+}
+
+
+
 
 export const showPokemon = (id) => dispatch => {
   return dispatch({

@@ -4,17 +4,47 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Zoom from '@material-ui/core/Zoom';
 import PropTypes from 'prop-types'
 import no_img from '../assets/missing.svg';
 import '../style/App.scss'
+import ContentLoader, { Facebook } from 'react-content-loader';
 
-export default function PokeList({ onClick, name,id, owned=0 }) {
+export default function PokeList({ onClick, name,id, owned=0 ,isLoading}) {
+  if(isLoading){
+      return (<li>
+        <Card className="card" style={{ margin:20 }}>
+           <ContentLoader 
+              height={110}
+              width={100}
+              speed={4}
+              primaryColor="#cfcfcf"
+              secondaryColor="#ededed"
+            >
+               <rect x="15" y="13" rx="3" ry="3" width="67" height="67" /> 
+                <circle cx="72" cy="79" r="1" /> 
+                <circle cx="53" cy="73" r="1" /> 
+                <circle cx="53" cy="73" r="1" /> 
+                <circle cx="52" cy="73" r="1" /> 
+                <rect x="115" y="39" rx="0" ry="0" width="0" height="0" /> 
+                <circle cx="35" cy="58" r="1" /> 
+                <rect x="17" y="88" rx="0" ry="0" width="39" height="7" /> 
+                <rect x="21" y="100" rx="0" ry="0" width="28" height="7" /> 
+                <rect x="63" y="88" rx="0" ry="0" width="10" height="7" /> 
+            </ContentLoader>
+        </Card>
+        </li>)
+  }
+
   return (
     <li>
+    <Zoom in={true} >
     <Card className="card">
       <CardActionArea  onClick={onClick} style={{ height:'100%' }}>
-        <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />        
         <CardContent>
+          <div style={{ textAlign:'center' }}>
+            <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />        
+          </div>
           <Typography gutterBottom variant="h5" component="h2">
             {name}            
           </Typography>
@@ -24,6 +54,7 @@ export default function PokeList({ onClick, name,id, owned=0 }) {
         </CardContent>
       </CardActionArea>
     </Card>
+    </Zoom>
     </li>
   );
 }

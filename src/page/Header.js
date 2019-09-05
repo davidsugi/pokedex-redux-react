@@ -1,16 +1,20 @@
 import { compose } from 'redux'
 import { connect } from 'react-redux'
 import Header from '../components/Header'
-import { goBack, push } from 'connected-react-router'
-
+import { goBack } from 'connected-react-router'
+import {clearQueryPush} from '../actions';
 import { withRouter } from "react-router";
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state,props) => ({
   router: state.router,
+  back: props.back,
+  title: props.title,
+  search: props.search,
 })
 
 const mapDispatchToProps = {
-  goBack,push
+  goBack,
+  push: clearQueryPush
 }
 
 export default compose(

@@ -20,11 +20,11 @@ export default class MyPokeAdapter extends Component {
 
     return (
        <div className = "container" >
-         <Header />
+         <Header title="My Pokemon" />
         <div className="content">
           <ul className="ul-poke">
             { Object.keys(pokemon).map(id => (
-              <MyPokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/my_poke/'+id)} />
+              <MyPokeList key={id} {...pokemon[id]} onClick={()=> this.props.push('/my_poke/'+id)} release={()=>this.props.releasePoke(id)} />
             )) }
           </ul>
         </div>

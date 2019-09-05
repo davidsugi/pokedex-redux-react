@@ -18,13 +18,19 @@ export default function (state = initState, action) {
         }
     }
     case MY_POKE.RELEASE:
-      return {...state, isLoading:false, error: action.payload.error,}
+      let newState = Object.keys(state.data).reduce((r, e) => {
+      if (action.id!==e) r[e] = state.data[e];
+      return r
+    }, {})
+    
+    return {...state, data: newState}
+
     case MY_POKE.RENAME:
          return {...state, 
             data:{
                 ...state.data,
                 [action.payload.id]: {
-                    ...state.data.action.payload.id,
+                    ...state.data[action.payload.id],
                     re_name: action.payload.name
                 }
             },

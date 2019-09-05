@@ -1,6 +1,6 @@
-import {  LOAD_POKE } from '../actions/pokemons'
+import {  LOAD_POKE,SEARCH_POKEMON } from '../actions/pokemons'
 
-const initState = {data:[], isLoading: false}
+const initState = {data:[], isLoading: false,page:0, query:'', currentShown:0}
 
 
 export default function (state = initState, action) {
@@ -9,6 +9,7 @@ export default function (state = initState, action) {
       return {...state, isLoading:true}
     case LOAD_POKE.FAIL:
       return {...state, isLoading:false, error: action.payload.error,}
+      
     case LOAD_POKE.SUCCESS:
         return {
             ...state,
@@ -25,8 +26,12 @@ export default function (state = initState, action) {
                         }
                     }, {})
                 },
-                isLoading: false
+                isLoading: false,
+                currentShown: 0,
+                page: action.payload.next === null ? null : state.page + 1
             }
+      case SEARCH_POKEMON:
+        return {...state, query: action.query, currentShown:0}
     default:
       return state
   }

@@ -1,6 +1,8 @@
 
 import { URL } from '../constants'
 import { RSAA } from 'redux-api-middleware'
+import { push } from 'connected-react-router'
+import { search } from './pokemons'
 
 let nextTodoId = 0
 export const addTodo = text => ({
@@ -94,11 +96,10 @@ export function throwPokeBall(poke) {
 }
 
 
-export function renamePoke(poke,name) {
+export function renamePoke(id,name) {
   return {
-    type: MY_POKE.CATCH,
-    poke,
-    name
+    type: MY_POKE.RENAME,
+    payload: { id: id,name: name }
   }
 }
 
@@ -107,4 +108,10 @@ export function releasePoke(id) {
     type: MY_POKE.RELEASE,
     id
   }
+}
+
+
+export const clearQueryPush = (url) => (dispatch) => {
+  dispatch(search(""));
+  dispatch(push(url));
 }
