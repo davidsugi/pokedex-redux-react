@@ -9,6 +9,8 @@ import PropTypes from 'prop-types'
 import no_img from '../assets/missing.svg';
 import '../style/App.scss'
 import ContentLoader, { Facebook } from 'react-content-loader';
+import LazyLoad from 'react-lazy-load';
+import ImgLoader from './ImgLoader';
 
 export default function PokeList({ onClick, name,id, owned=0 ,isLoading}) {
   if(isLoading){
@@ -43,7 +45,14 @@ export default function PokeList({ onClick, name,id, owned=0 ,isLoading}) {
       <CardActionArea  onClick={onClick} style={{ height:'100%' }}>
         <CardContent>
           <div style={{ textAlign:'center' }}>
-            <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />        
+            <LazyLoad 
+            width='100%'
+            debounce={false}
+            throttle={250}
+            offsetVertical={500}
+            >
+            <ImgLoader className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name}  />        
+            </LazyLoad>
           </div>
           <Typography gutterBottom variant="h5" component="h2">
             {name}            

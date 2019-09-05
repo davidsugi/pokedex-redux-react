@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import CardActions from '@material-ui/core/CardActions';
 import Grid from '@material-ui/core/Grid';
 import ContentLoader from "react-content-loader"
+import LazyLoad from 'react-lazy-load';
 
 export default function MyPokeList({ onClick, name,id, re_name, release,isLoading }) {
     if(isLoading){
@@ -39,15 +40,20 @@ export default function MyPokeList({ onClick, name,id, re_name, release,isLoadin
         </li>)
   }
 
-
-
-
   return (
     <li>
     <Card className="card" style={{ display:'flex', flexDirection: 'column',}}>
       <CardActionArea  onClick={onClick} style={{ flex:9, display:'flex',  flexDirection: 'column',}}>
         <div>
-          <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />        
+          <LazyLoad 
+            width={100}
+            height={100}
+            debounce={false}
+            throttle={250}
+            offsetVertical={500}
+            >
+          <img className="image" src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />    
+          </LazyLoad>    
         </div>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
