@@ -2,7 +2,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux'
 import MyPokeView from '../components/MyPokeView'
 import { goBack } from 'connected-react-router'
-
+import {releasePoke} from '../actions'
 import { withRouter } from "react-router";
 
 const mapStateToProps = (state) => ({
@@ -10,7 +10,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  goBack
+  goBack,
+  releasePoke
+
 }
 
 export default compose(

@@ -18,12 +18,18 @@ export default function (state = initState, action) {
         }
     }
     case MY_POKE.RELEASE:
+        let pokemonid= state.data[action.id].id;
       let newState = Object.keys(state.data).reduce((r, e) => {
       if (action.id!==e) r[e] = state.data[e];
       return r
     }, {})
     
-    return {...state, data: newState}
+    return {...state, data: newState,
+    summary: {
+        ...state.summary,
+        [pokemonid]: state.summary[pokemonid] ? state.summary[pokemonid] - 1 : 0,
+    }
+    }
 
     case MY_POKE.RENAME:
          return {...state, 

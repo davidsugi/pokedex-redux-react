@@ -19,8 +19,9 @@ import Zoom from '@material-ui/core/Zoom';
 import Snackbar from '@material-ui/core/Snackbar';
 import SnackContent from './Snackbar'
 import Dialog from './FormDialog';
+import Button from '@material-ui/core/Button';
 import clsx from 'clsx';
-
+import Swal from 'sweetalert2'
 
 const failMsg = [
 "Oh no! The pokemon broke free!",
@@ -84,7 +85,8 @@ class MyPokeView extends Component {
     };
     this.onCatch=this.onCatch.bind(this)
     this.handleClose = this.handleClose.bind(this)
-    this.rename = this.rename.bind(this)
+    this.release = this.release.bind(this)
+
   };
 
 
@@ -98,11 +100,25 @@ class MyPokeView extends Component {
   componentDidMount() {
   }
 
-  rename(q){
-      if(q!==""){
-        this.props.renamePoke(this.props.currentPokemon,q)
+  release(){
+      var pokemon = this.props.pokemon[this.props.match.params.id];
+      var name = pokemon.re_name ? pokemon.re_name : pokemon.name;
+      Swal.fire({
+      title: 'Are You Sure?',
+      text: 'Release ' + name + '?',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      focusCancel: true,
+      confirmButtonText: 'Yes, Release '+name,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this.props.goBack();
+        this.props.releasePoke(this.props.match.params.id);
       }
-      this.setState({ dialog:false});
+    })
   }
 
   onCatch(){
@@ -114,73 +130,81 @@ class MyPokeView extends Component {
   
   
   render() {
-    var { pokemon ,isLoading,goBack} = this.props;
+    var { pokemon ,isLoading} = this.props;
     
     const { open } = this.state;
     const { classes } = this.props;
 
      pokemon = pokemon[this.props.match.params.id];
-
-    var img = pokemon.sprites ? pokemon.sprites.front_default ? pokemon.sprites.front_default : no_img : no_img
-    return (
-        <div>
-            <Header back search={false}  title={ !isLoading ? capitalize(pokemon.re_name ? pokemon.re_name : pokemon.name) : undefined  } />{
-              isLoading ? <p>Loading..</p> :
-              <div className={classes.root}>
-                <Container>
-                 <Paper className={classes.topCard}>
-                   <Grid container>
-                      <Grid item xs={12} md={4} style={{ textAlign:'center'}}>
-                        <Zoom in={true}>
-                          <img src={img} className={"image "+classes.image}style={{ margin: 21 }} alt={pokemon.name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />
-                        </Zoom>
+    if(pokemon){
+      var img = pokemon.sprites ? pokemon.sprites.front_default ? pokemon.sprites.front_default : no_img : no_img
+      return (
+          <div>
+              <Header back search={false}  title={ !isLoading ? capitalize(pokemon.re_name ? pokemon.re_name : pokemon.name) : undefined  } />{
+                isLoading ? <p>Loading..</p> :
+                <div className={classes.root}>
+                  <Container>
+                   <Paper className={classes.topCard}>
+                     <Grid container>
+                        <Grid item xs={12} md={4} style={{ textAlign:'center'}}>
+                          <Zoom in={true}>
+                            <img src={img} className={"image "+classes.image}style={{ margin: 21 }} alt={pokemon.name} onError={(ev)=>{ ev.target.onerror = null; ev.target.src=no_img }} />
+                          </Zoom>
+                        </Grid>
+                        <Grid item xs={12} md={8}>
+                        <Typography variant="h5" component="p" gutterBottom>
+                            <span className={clsx(classes.id,classes.subtext)} style={{ color: 'grey' }}>#{ ("00000" + pokemon.id).slice(-5) }</span> 
+                        </Typography>
+                        <Typography variant="h4" component="h2" gutterBottom className={classes.title}>
+                          <strong>{capitalize(pokemon.re_name ? pokemon.re_name : pokemon.name) }</strong>
+                        </Typography>
+                          { pokemon.re_name ? <Typography variant="h6" component="p" gutterBottom>
+                            <span style={{ color: 'black' }} className={clsx(classes.subtext)}>Species: { capitalize(pokemon.name) }</span> 
+                        </Typography> : null }
+                        <div style={{ display:'flex'}}>
+                          {
+                            pokemon.types ? pokemon.types.map((e,i)=> {
+                              return <Chip size="small" key={i} style={{ backgroundColor:type[e.type.name], color:'white', marginLeft:'20px', fontSize:'20px',padding:'10px' }} label={capitalize(e.type.name)} />;
+                            }) : null 
+                          }
+                        </div>
+                        </Grid>
+                        
+                     </Grid>
+                     <Grid container justify="flex-end" style={{ padding:'20px'}}>
+                        <Button size="small" color="primary" onClick={this.release}>
+                          Release
+                        </Button>
                       </Grid>
-                      <Grid item xs={12} md={8}>
-                      <Typography variant="h5" component="p" gutterBottom>
-                          <span className={clsx(classes.id,classes.subtext)} style={{ color: 'grey' }}>#{ ("00000" + pokemon.id).slice(-5) }</span> 
-                      </Typography>
-                      <Typography variant="h4" component="h2" gutterBottom className={classes.title}>
-                        <strong>{capitalize(pokemon.re_name ? pokemon.re_name : pokemon.name) }</strong>
-                      </Typography>
-                        { pokemon.re_name ? <Typography variant="h6" component="p" gutterBottom>
-                          <span style={{ color: 'black' }} className={clsx(classes.subtext)}>{ capitalize(pokemon.name) }</span> 
-                      </Typography> : null }
-                      <div style={{ display:'flex'}}>
-                        {
-                          pokemon.types ? pokemon.types.map((e,i)=> {
-                            return <Chip size="small" key={i} style={{ backgroundColor:type[e.type.name], color:'white', marginLeft:'20px', fontSize:'20px',padding:'10px' }} label={capitalize(e.type.name)} />;
-                          }) : null 
-                        }
-                      </div>
-                      </Grid>
-                   </Grid>
-                 </Paper>
-                 <Typography variant="h5" component="h5" gutterBottom>
-                    Move(s)
-                  </Typography>
-                  <Grid container>
-                    {
-                          pokemon.moves ? pokemon.moves.map((move,i) => {
-                            return (
-                            <Grid item xs={12} key={i} md={6} style={{ textAlign:'center'}}>
-                              <Grow in={true} {...({ timeout: 1500 })}>
-                              <Paper elevation={4} style={{ margin: '10px', padding:'10px'}}>
-                                <Typography variant="h6" component="p" gutterBottom>
-                                    { capitalize(move.move.name) }
-                                </Typography>
-                              </Paper>
-                              </Grow>
-                          </Grid>)
-                          }) : null 
-                        }
-                      
-                  </Grid>
-                </Container>
-              </div>
-            }
-           
-        </div>
-    );
+                   </Paper>
+                   <Typography variant="h5" component="h5" gutterBottom>
+                      Move(s)
+                    </Typography>
+                    <Grid container>
+                      {
+                            pokemon.moves ? pokemon.moves.map((move,i) => {
+                              return (
+                              <Grid item xs={12} key={i} md={6} style={{ textAlign:'center'}}>
+                                <Grow in={true} {...({ timeout: 1500 })}>
+                                <Paper elevation={4} style={{ margin: '10px', padding:'10px'}}>
+                                  <Typography variant="h6" component="p" gutterBottom>
+                                      { capitalize(move.move.name) }
+                                  </Typography>
+                                </Paper>
+                                </Grow>
+                            </Grid>)
+                            }) : null 
+                          }
+                        
+                    </Grid>
+                  </Container>
+                </div>
+              }
+             
+          </div>
+      );
+    }
+    return <div></div>
   }
 }
 

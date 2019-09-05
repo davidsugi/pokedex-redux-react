@@ -13,8 +13,6 @@ import Grid from '@material-ui/core/Grid';
 import ContentLoader from "react-content-loader"
 
 export default function MyPokeList({ onClick, name,id, re_name, release,isLoading }) {
- const [anchorEl, setAnchorEl] = React.useState(null);
-
     if(isLoading){
       return (<li>
         <Card className="card" style={{ margin:20 }}>
@@ -42,14 +40,7 @@ export default function MyPokeList({ onClick, name,id, re_name, release,isLoadin
   }
 
 
- 
- function handleClick(event) {
-   setAnchorEl(event.currentTarget);
- }
 
- function handleClose() {
-   setAnchorEl(null);
- }
 
   return (
     <li>
@@ -79,8 +70,6 @@ export default function MyPokeList({ onClick, name,id, re_name, release,isLoadin
             </Button>
           </Grid>
     </Grid>
-
-        
       </CardActions>
     </Card>
     </li>
